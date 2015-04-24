@@ -7,21 +7,6 @@
         data: {}
     };
 
-    var bootstrap = function() {
-        $(function() {
-            app.mobileApp = new kendo.mobile.Application(document.body, {
-
-                // comment out the following line to get a UI which matches the look
-                // and feel of the operating system
-                skin: 'flat',
-
-                // the application needs to know which view to load first
-                initial: 'home/view.html'
-
-            });
-        });
-    };
-
     if (window.cordova) {
         // this function is called by Cordova when the application is loaded by the device
         document.addEventListener('deviceready', function() {
@@ -30,12 +15,75 @@
             // Cordova will wait 5 very long seconds to do it for you.
             if (navigator && navigator.splashscreen) navigator.splashscreen.hide();
 
-            bootstrap();
-
         }, false);
     } else {
-        bootstrap();
-    }
+   
+	}
 
     window.app = app;
 }());
+
+angular.module('ionicApp', ['ionic'])
+
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('tabs', {
+      url: "/tab",
+      abstract: true,
+      templateUrl: "templates/tabs.html"
+    })
+    .state('tabs.home', {
+      url: "/home",
+      views: {
+        'home-tab': {
+          templateUrl: "templates/home.html",
+          controller: 'HomeTabCtrl'
+        }
+      }
+    })
+    .state('tabs.facts', {
+      url: "/facts",
+      views: {
+        'home-tab': {
+          templateUrl: "templates/facts.html"
+        }
+      }
+    })
+    .state('tabs.facts2', {
+      url: "/facts2",
+      views: {
+        'home-tab': {
+          templateUrl: "templates/facts2.html"
+        }
+      }
+    })
+    .state('tabs.about', {
+      url: "/about",
+      views: {
+        'about-tab': {
+          templateUrl: "templates/about.html"
+        }
+      }
+    })
+    .state('tabs.navstack', {
+      url: "/navstack",
+      views: {
+        'about-tab': {
+          templateUrl: "templates/nav-stack.html"
+        }
+      }
+    })
+    .state('tabs.contact', {
+      url: "/contact",
+      views: {
+        'contact-tab': {
+          templateUrl: "templates/contact.html"
+        }
+      }
+    });
+   $urlRouterProvider.otherwise("/tab/home");
+})
+
+.controller('HomeTabCtrl', function($scope) {
+  console.log('HomeTabCtrl');
+});
