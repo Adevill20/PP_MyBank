@@ -1,4 +1,4 @@
-(function() {
+/*(function() {
 
     // store a reference to the application object that will be created
     // later on so that we can use it if need be
@@ -21,11 +21,19 @@
 	}
 
     window.app = app;
-}());
+}());*/
 
-angular.module('ionicApp', ['ionic'])
+var app = angular.module('ionicApp', ['ionic'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+	$ionicConfigProvider.views.maxCache(0);
+	$ionicConfigProvider.views.transition("ios");
+	$ionicConfigProvider.backButton.icon("ion-chevron-left");
+	$ionicConfigProvider.tabs.style("standard");
+	$ionicConfigProvider.navBar.alignTitle("center");
+	$ionicConfigProvider.tabs.position("bottom");
+	$ionicConfigProvider.navBar.positionPrimaryButtons("left");
+	
   $stateProvider
     .state('tabs', {
       url: "/tab",
@@ -81,6 +89,7 @@ angular.module('ionicApp', ['ionic'])
         }
       }
     });
+	
    $urlRouterProvider.otherwise("/tab/home");
 })
 
